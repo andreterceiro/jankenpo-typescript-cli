@@ -1,0 +1,52 @@
+{
+  "name": "jankenpo",
+  "description": "Jankenpo CLI game",
+  "version": "1.0.0",
+  "author": "André de Paula Terceiro",
+  "bin": {
+    "jankenpo": "./bin/run"
+  },
+  "bugs": "https://github.com/https://github.com/andreterceiro/jankenpo.git/jankenpo/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^3",
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1",
+    "@oclif/test": "^1",
+    "@types/chai": "^4",
+    "@types/mocha": "^5",
+    "@types/node": "^10",
+    "chai": "^4",
+    "mocha": "^5",
+    "nyc": "^14",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib"
+  ],
+  "homepage": "https://github.com/https://github.com/andreterceiro/jankenpo.git/jankenpo",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "bin": "jankenpo"
+  },
+  "repository": "https://github.com/andreterceiro/jankenpo.git/jankenpo",
+  "scripts": {
+    "prepack": "rimraf lib && tsc -b && oclif-dev readme",
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
+}
