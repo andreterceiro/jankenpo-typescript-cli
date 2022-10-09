@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command';
 const Chalk = require('chalk');
 const inquirer = require("inquirer");
-const axios = require("axios");
+const fetch = require("node-fetch");
 
 class Jankenpo extends Command {
   static description = 'Jankenpo game';
@@ -28,7 +28,7 @@ class Jankenpo extends Command {
       });
       
       let computerChoice = '';
-      await axios.get("https://187a7n5rz8.execute-api.us-west-2.amazonaws.com/default/jankenpo").then(
+      await fetch("https://187a7n5rz8.execute-api.us-west-2.amazonaws.com/default/jankenpo").then(
         function(response: any): any {
           computerChoice = response.data;
         }
