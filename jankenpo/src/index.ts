@@ -5,16 +5,25 @@ const inquirer = require("inquirer");
 class Jankenpo extends Command {
   static description = 'Jankenpo game';
 
+  /**
+   * Oclif flags
+   * 
+   * @member {object}
+   */
   static flags = {
     version: flags.version({char: 'v'}),
     help: flags.help({char: 'h'}),
   };
 
-  static args = [{name: 'file'}];
-
-  async run() {
+  /**
+   * Main method - run the game
+   * 
+   * @return {Promise<void>}
+   */
+  async run():Promise<void> {
       let choice:string = "";
       
+      // Showing the options to the user
       await inquirer.prompt(
         {
           name: "choice",
@@ -41,6 +50,13 @@ class Jankenpo extends Command {
       console.log("Winner was: " + winner);
   }
 
+  /**
+   * Get the chalk colored choice
+   * 
+   * @param {string} choice A string representing the choice, like 'rock'
+   * 
+   * @return {string} 
+   */
   getColoredChoice(choice: string): string {
     if (choice == "paper") {
       return Chalk.cyan("paper");
@@ -50,6 +66,11 @@ class Jankenpo extends Command {
     return Chalk.gray("scissors");
   }
 
+  /**
+   * Returns the computer choice
+   * 
+   * @return {string} A string representing the choice, like 'rock'
+   */
   getComputerChoice(): string {
     const choices = ["paper", "rock", "scissors"];
     const randomComputerIndex = Math.floor(Math.random() * 3);
