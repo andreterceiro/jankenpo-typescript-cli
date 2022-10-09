@@ -27,24 +27,15 @@ class Jankenpo extends Command {
         choice = answer.choice;
       });
       
-      let computerChoice = '';
-      await fetch("https://187a7n5rz8.execute-api.us-west-2.amazonaws.com/default/jankenpo").then(
-        function(response: any): any {
-          computerChoice = response.data;
-        }
-      )
+      let computerChoice = this.getComputerChoice();
 
       let winner = Chalk.yellow("draw");
-      computerChoice = this.translateChoice(computerChoice);
 
       if ((choice == "paper" && computerChoice == "rock") || (choice == "scissors" && computerChoice == "paper") || (choice == "rock" && computerChoice == "scissors")) {
         winner = Chalk.green("player (you)");
       } else if ((choice == "paper" && computerChoice == "scissors") || (choice == "scissors" && computerChoice == "rock") || (choice == "rock" && computerChoice == "paper")) {
         winner = Chalk.red("computer");
       }
-
-      console.log(choice + " (you)");
-      console.log(computerChoice + " (computer)");
 
       console.log("You choosed: " + this.getColoredChoice(choice));
       console.log("Computer choosed: " + this.getColoredChoice(computerChoice));
@@ -60,13 +51,10 @@ class Jankenpo extends Command {
     return Chalk.gray("scissors");
   }
 
-  translateChoice(choice: string): string {
-    if (choice == "papel") {
-      return "paper";
-    } else if (choice == "pedra") {
-      return  "rock";
-    } 
-    return "scissors";
+  getComputerChoice(): string {
+    const choices = ["paper", "rock", "scissors"];
+    const randomComputerIndex = Math.floor(Math.random() * 3);
+    return choices[randomComputerIndex];
   }
 }
 
