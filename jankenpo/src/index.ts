@@ -1,7 +1,6 @@
 import {Command, flags} from '@oclif/command';
 const Chalk = require('chalk');
 const inquirer = require("inquirer");
-const fetch = require("node-fetch");
 
 class Jankenpo extends Command {
   static description = 'Jankenpo game';
