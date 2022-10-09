@@ -1,10 +1,10 @@
 import {Command, flags} from '@oclif/command'
-import { string } from '@oclif/command/lib/flags'
-var inquirer = require("inquirer")
-var axios = require("axios")
+const Chalk = require('chalk');
+const inquirer = require("inquirer")
+const axios = require("axios")
 
 class Jankenpo extends Command {
-  static description = 'describe the command here'
+  static description = 'Jankenpo game'
 
   static flags = {
     version: flags.version({char: 'v'}),
@@ -21,7 +21,7 @@ class Jankenpo extends Command {
           name: "choice",
           type: "list",
           message: "Please select one option:", 
-          choices: ["papel", "pedra", "tesoura"]
+          choices: ["paper", "rock", "scissors"]
         }
       ).then (function (answer: any): void {
         choice = answer.choice;
@@ -34,18 +34,39 @@ class Jankenpo extends Command {
         }
       )
 
-      console.log("Você escolheu: " + choice)
-      console.log("O computador escolheu: " + computerChoice)
+      let winner = Chalk.yellow("draw")
+      computerChoice = this.translateChoice(computerChoice);
 
-      let vencedor = "empate"
-
-      if ((choice == "papel" && computerChoice == "pedra") || (choice == "tesoura" && computerChoice == "papel") || (choice == "pedra" && computerChoice == "tesoura")) {
-        vencedor = "jogador (você)"
-      } else if ((choice == "papel" && computerChoice == "tesoura") || (choice == "tesoura" && computerChoice == "pedra") || (choice == "pedra" && computerChoice == "papel")) {
-        vencedor = "computador"
+      if ((choice == "paper" && computerChoice == "rock") || (choice == "scissors" && computerChoice == "paper") || (choice == "rock" && computerChoice == "scissors")) {
+        winner = Chalk.green("player (you)")
+      } else if ((choice == "paper" && computerChoice == "scissors") || (choice == "scissors" && computerChoice == "rock") || (choice == "rock" && computerChoice == "paper")) {
+        winner = Chalk.red("computer")
       }
 
-      console.log("O vencedor foi: " + vencedor)
+      console.log(choice + " (you)")
+      console.log(computerChoice + " (computer)")
+
+      console.log("You choosed: " + this.getColoredChoice(choice))
+      console.log("Computer choosed: " + this.getColoredChoice(computerChoice))
+      console.log("Winner was: " + winner)
+  }
+
+  getColoredChoice(choice: string): string {
+    if (choice == "paper") {
+      return Chalk.cyan("paper");
+    } else if (choice == "rock") {
+      return  Chalk.blue("rock");
+    } 
+    return Chalk.gray("scissors");
+  }
+
+  translateChoice(choice: string): string {
+    if (choice == "papel") {
+      return "paper";
+    } else if (choice == "pedra") {
+      return  "rock";
+    } 
+    return "scissors";
   }
 }
 
